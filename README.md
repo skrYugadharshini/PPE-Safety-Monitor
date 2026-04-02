@@ -182,7 +182,9 @@ pip install ultralytics
 Run:
 
 python inference/predict.py
+
 📁 PROJECT STRUCTURE
+
 construction-safety-monitor/
 ├── README.md
 ├── requirements.txt
@@ -195,16 +197,20 @@ construction-safety-monitor/
 │   └── results.png
 ├── docs/
 │   └── images/
+
 ⚙️ HOW IT WORKS
+
 Input image/video
 YOLO detects objects
 PPE checked
 Rules applied
 Output: Safe / Unsafe
+
 ⚠️ LIMITATIONS
 Small custom dataset
 Lighting sensitivity
 Occlusion issues
+
 🚀 FUTURE IMPROVEMENTS
 Real-time detection
 Larger dataset

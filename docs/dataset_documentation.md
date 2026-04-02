@@ -1,4 +1,4 @@
-## 2. Data Sources
+## 1. Data Sources
 
 ### 2.1 Public Dataset (Kaggle)
 
@@ -109,14 +109,19 @@ The following proof is provided to verify dataset preparation:
 
 
 - Screenshot of Kaggle dataset source  
+
 ![alt text](image-3.png)
 - Screenshot of Roboflow project  
+
 ![alt text](image-4.png)
 - Screenshots of manually labeled images  
+
 ![alt text](image-5.png)
 - Sample annotated images  
+
 ![alt text](image-6.png)
 - Dataset folder structure and counts  
+
 ![alt text](image-7.png)
 
 

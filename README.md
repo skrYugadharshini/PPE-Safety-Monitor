@@ -135,3 +135,28 @@ Run:
 
 ```bash
 pip install ultralytics
+
+Project Structure
+PPESAFETY/
+├── README.md
+├── data.yaml
+├── requirements.txt
+├── training/
+│   └── PPE-Detection.ipynb
+├── inference/
+│   └── predict.py
+├── results/
+├── docs/
+
+
+⚠️ Limitations
+Small custom dataset
+Class imbalance
+Weak performance on no-helmet
+Scene-level logic
+
+🚀 Future Work
+Improve dataset balance
+Add more safety classes
+Real-time monitoring
+Web deployment

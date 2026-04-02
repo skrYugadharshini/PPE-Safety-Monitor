@@ -136,6 +136,8 @@ Run:
 ```bash
 pip install ultralytics
 
+```
+
 Project Structure
 PPESAFETY/
 ├── README.md

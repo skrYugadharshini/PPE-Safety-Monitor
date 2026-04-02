@@ -158,6 +158,50 @@ Dataset imbalance affects results
 ✔ High accuracy for person detection
 ✔ Works on real-world images
 
+## Dataset
+This project uses a combined dataset built from:
+- a public Kaggle PPE/construction safety dataset
+- 57 manually labeled custom images collected from Google and annotated in Roboflow
+
+Both datasets use the same 5 classes:
+- helmet
+- no-helmet
+- no-vest
+- person
+- vest
+
+Final combined dataset size:
+- Train: 3047
+- Validation: 113
+- Test: 108
+- Total: 3268
+Step 10: What proof to show to the hiring team
+
+For proof, include:
+
+Kaggle source name and screenshot
+Roboflow project screenshot
+screenshot of your labeled bounding boxes
+screenshot of folder counts
+maybe one before-label and after-label example
+
+That is enough.
+
+Step 11: Best commit for this
+
+When you upload this file, use:
+
+Add dataset documentation and data source details
+Step 12: What I need from you next
+
+Send me these 3 things:
+
+the exact Kaggle dataset name or link
+your exact 5 class names from data.yaml
+whether you want me to also write the proof section with screenshot captions and the Safety Rules Definition next
+
+If you want, I can also give you a small Python code block to count exact class distribution from your label files.
+
 🚀 ✅ 6. HONEST EVALUATION (VERY IMPORTANT 💯)
 📌 Where model performs well
 Detecting person

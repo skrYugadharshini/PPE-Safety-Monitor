@@ -105,25 +105,7 @@ When a violation is detected, the system:
 
 ---
 
-## 6. Visual Examples (Proof)
 
-Below are example outputs from the model:
-
-### 🔹 Safe Example
-![Safe Example](images/safe_example.png)
-
-### 🔹 Helmet Violation
-![No Helmet](images/no_helmet_example.png)
-
-### 🔹 Vest Violation
-![No Vest](images/no_vest_example.png)
-
-### 🔹 Multiple Violations
-![Multiple Violations](images/multiple_violation.png)
-
-*(Images are located in the `docs/images/` folder)*
-
----
 
 ## 7. Limitations of Safety Rules
 

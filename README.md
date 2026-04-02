@@ -1,90 +1,238 @@
-## 📌 Overview
-This project presents a computer vision-based solution for monitoring construction site safety. The system detects workers and evaluates whether they are wearing required Personal Protective Equipment (PPE), specifically helmets and safety vests.
-
-The model processes images and determines whether a situation is **Safe ✅** or **Unsafe ❌** based on defined safety rules.
+# 🏗️ Construction Safety Monitor (PPE Detection System)
 
 ---
 
-## 🎯 Objectives
-- 👷 Detect workers in construction environments  
-- 🪖 Identify helmet usage  
-- 🦺 Detect safety vest usage  
-- ⚠️ Flag safety violations  
-- ✅ Classify scenes as safe or unsafe  
+# 📌 OVERVIEW
+This project presents a computer vision-based system for monitoring construction site safety using PPE (Personal Protective Equipment) detection.
+
+The system detects workers and evaluates whether they are wearing:
+- 🪖 Helmets  
+- 🦺 Safety vests  
+
+It classifies situations as:
+- **Safe ✅**
+- **Unsafe ❌**
 
 ---
 
-## 📂 Dataset
-This project uses a **combined dataset** built from:
+# 🎯 OBJECTIVES
+- Detect workers in construction environments  
+- Identify helmet usage  
+- Detect safety vest usage  
+- Flag safety violations  
+- Classify scenes as safe or unsafe  
 
-- 📦 Public PPE dataset from Kaggle  
-- ✍️ 57 manually collected and annotated images (Google Images + Roboflow)  
+---
 
-### 📊 Dataset Summary
-- Train images: 3047  
-- Validation images: 113  
-- Test images: 108  
-- Total images: 3268  
+# 🧠 TECH STACK
+- YOLOv8 (Ultralytics)  
+- Python  
+- Google Colab (GPU)  
+- Roboflow (Annotation)  
+- OpenCV / Matplotlib  
 
-### 🏷️ Classes
+---
+
+# 📂 DATASET
+
+## Overview
+This project uses a combined dataset created from:
+- 📦 Kaggle PPE dataset  
+- ✍️ 57 manually collected images (Google + Roboflow)
+
+---
+
+## Classes
 - helmet 🪖  
 - no-helmet  
 - no-vest  
 - person 👷  
 - vest 🦺  
 
-📄 Full dataset details:  
-➡️ [Dataset Documentation](docs/dataset_documentation.md)
+---
+
+## Dataset Size
+
+### Kaggle Dataset
+- Train: 3006  
+- Validation: 102  
+- Test: 102  
+
+### Custom Dataset
+- Train: 41  
+- Validation: 11  
+- Test: 6  
+
+### Final Combined Dataset
+- Train: 3047  
+- Validation: 113  
+- Test: 108  
+- Total: 3268  
 
 ---
 
-## ⚙️ Model
-- **Model Used:** YOLOv8  
-- **Framework:** Ultralytics  
-- **Training Environment:** Google Colab (GPU)  
+## Data Collection Process
+- Downloaded dataset from Kaggle  
+- Collected additional images from Google  
+- Manually annotated using Roboflow  
+- Used same class labels for consistency  
 
 ---
 
-## 🧪 Training Details
+## Annotation
+- Tool: Roboflow  
+- Type: Bounding box  
+- Custom labeled images: 57  
+
+---
+
+## Dataset Merging
+- Combined both datasets (train, valid, test)  
+- Maintained YOLO format  
+- No relabeling required  
+
+---
+
+## Limitations
+- Small custom dataset  
+- Image quality varies  
+- Class imbalance  
+
+---
+
+# ⚙️ MODEL
+
+- Model: YOLOv8  
+- Pretrained: yolov8n.pt  
+- Training: Google Colab GPU  
+
+---
+
+# 🧪 TRAINING DETAILS
 - Epochs: 50  
 - Image Size: 640  
 - Batch Size: 16  
-- Pretrained Model: yolov8n.pt  
-
-📄 Full training process:  
-➡️ [Training Notebook](training/training_colab.ipynb)
 
 ---
 
-## 📊 Evaluation & Results
-The model was evaluated using standard object detection metrics.
+# 📊 RESULTS
 
-### 📈 Metrics
-- Precision: *(add your value if available)*  
-- Recall: *(add your value if available)*  
-- mAP: *(add your value if available)*  
+## Metrics
+- Precision: (add if available)  
+- Recall: (add if available)  
+- mAP: (add if available)  
 
-### 📉 Training Curves
-Training performance including loss curves and metrics:
+## Training Curves
+Add this image:
 
-![Training Results](results/results.png)
+results/results.png
 
----
-
-## 🚨 Safety Rules
-The system enforces PPE compliance using the following rules:
-
-- 🪖 Workers must wear helmets  
-- 🦺 Workers must wear safety vests  
-- ⚠️ Missing PPE is flagged as a violation  
-
-📄 Full safety rules definition:  
-➡️ [Safety Rules](docs/safety_rules.md)
 
 ---
 
-## 🔍 Inference
-Run detection using:
+# 🚨 SAFETY RULES
+
+## Rule 1: Helmet
+Workers must wear helmets.
+
+❌ Violation:
+- no-helmet detected  
+
+---
+
+## Rule 2: Safety Vest
+Workers must wear vests.
+
+❌ Violation:
+- no-vest detected  
+
+---
+
+## Rule 3: Full PPE Compliance
+Workers must wear BOTH:
+- helmet  
+- vest  
+
+❌ Violation:
+- missing one or both  
+
+---
+
+## Decision Logic
+
+IF:
+- person detected  
+- helmet detected  
+- vest detected  
+
+→ SAFE ✅  
+
+ELSE  
+→ UNSAFE ❌  
+
+---
+
+# 🔍 INFERENCE
+
+Install:
 
 ```bash
 pip install ultralytics
+
+Run:
+
+python inference/predict.py
+📁 PROJECT STRUCTURE
+construction-safety-monitor/
+├── README.md
+├── requirements.txt
+├── data.yaml
+├── training/
+│   └── training_colab.ipynb
+├── inference/
+│   └── predict.py
+├── results/
+│   └── results.png
+├── docs/
+│   └── images/
+⚙️ HOW IT WORKS
+Input image/video
+YOLO detects objects
+PPE checked
+Rules applied
+Output: Safe / Unsafe
+⚠️ LIMITATIONS
+Small custom dataset
+Lighting sensitivity
+Occlusion issues
+🚀 FUTURE IMPROVEMENTS
+Real-time detection
+Larger dataset
+More safety rules
+Web deployment
+👩‍💻 AUTHOR
+
+Yugadharshini
+
+📌 SUMMARY
+
+This project demonstrates:
+
+Dataset creation & annotation
+Model training (YOLOv8)
+PPE detection
+Safety rule implementation
+
+A complete pipeline for construction safety monitoring.
+
+
+---
+
+# 🎯 HOW TO USE THIS
+
+## Option 1 (BEST)
+Split into:
+
+- README.md → main part  
+- dataset_documentation.md → dataset section  
+- safety_rules.md → rules  

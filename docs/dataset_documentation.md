@@ -108,9 +108,8 @@ The custom dataset was created to:
 The following proof is provided to verify dataset preparation:
 
 
-- Screenshot of Kaggle dataset source  
 
-![alt text](image-3.png)
+
 - Screenshot of Roboflow project  
 
 ![alt text](image-4.png)

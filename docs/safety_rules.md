@@ -99,6 +99,15 @@ The system uses a rule-based layer after object detection.
 
 ---
 
+## 🔍 Enhanced Inference Output
+
+The system overlays a final safety decision directly on the image:
+
+- SAFE (green)
+- UNSAFE (red)
+
+This improves interpretability and makes the system more practical for real-world monitoring.
+
 ## 4. Example Scenarios
 
 ### ✅ Safe Scenario

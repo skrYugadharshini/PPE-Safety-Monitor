@@ -66,6 +66,7 @@ Construction environments are high-risk areas where lack of PPE can lead to seri
 | Batch Size | 16 |
 
 ---
+![alt text](image.png)
 
 ## 📊 Evaluation Results
 
@@ -80,25 +81,25 @@ Construction environments are high-risk areas where lack of PPE can lead to seri
 ---
 
 ### 📉 Training Curve
-![Training](results/results.png)
+![alt text](image-1.png)
 
 ---
 
 ### 📊 Confusion Matrix
-![Confusion](results/confusion_matrix.png)
+![alt text](image-2.png)
 
 ---
 
 ## 🔍 Sample Predictions
 
 ### ❌ No Vest
-![No Vest](results/sample_no_vest.jpg)
+![alt text](image-3.png)
 
 ### ❌ No Helmet
-![No Helmet](results/sample_no_helmet.jpg)
+![alt text](image-4.png)
 
 ### ✅ Safe
-![Safe](results/sample_safe.jpg)
+![alt text](image-5.png)
 
 ---
 

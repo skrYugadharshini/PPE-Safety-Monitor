@@ -1,9 +1,11 @@
 # 🚨 Safety Rules Definition
 
 ## 1. Overview
-This system is designed to monitor construction site safety by detecting workers and evaluating whether they comply with required Personal Protective Equipment (PPE) regulations.
+This system monitors construction site safety by detecting workers and evaluating whether they are wearing required Personal Protective Equipment (PPE).
 
-The model analyzes images and determines whether a situation is **Safe ✅** or **Unsafe ❌** based on predefined safety rules.
+The model identifies PPE-related objects and applies rule-based logic to classify each scene as:
+- **Safe ✅**
+- **Unsafe ❌**
 
 ---
 
@@ -11,18 +13,21 @@ The model analyzes images and determines whether a situation is **Safe ✅** or 
 
 ### 🔹 Rule 1: Helmet Compliance
 **Definition:**  
-Every worker present in the scene must wear a safety helmet.
+Every worker on site must wear a safety helmet at all times.
 
 **Safe Condition ✅:**
-- Worker is detected wearing a helmet properly
+- A person is detected wearing a helmet (`helmet` class)
 
 **Violation ❌:**
-- Worker is detected without a helmet  
-- Worker labeled as `no-helmet`
+- A person is detected without a helmet (`no-helmet` class)
+- A person is present but no helmet is detected
 
 **Example Violations:**
-- Worker standing on site without a helmet  
-- Worker carrying a helmet but not wearing it  
+- Worker standing on site without helmet  
+- Worker holding helmet but not wearing it  
+
+📷 Example:
+![alt text](image-8.png)
 
 ---
 
@@ -31,96 +36,128 @@ Every worker present in the scene must wear a safety helmet.
 Every worker must wear a high-visibility safety vest.
 
 **Safe Condition ✅:**
-- Worker is detected wearing a safety vest
+- A person is detected wearing a vest (`vest` class)
 
 **Violation ❌:**
-- Worker is detected without a vest  
-- Worker labeled as `no-vest`
+- A person is detected without a vest (`no-vest` class)
+- A person is present but no vest is detected
 
 **Example Violations:**
-- Worker in active construction zone without a vest  
-- Vest worn incorrectly or not visible  
+- Worker without reflective vest  
+- Vest partially worn or not visible  
+
+📷 Example:
+![alt text](image-9.png)
 
 ---
 
-### 🔹 Rule 3: Combined PPE Compliance
+### 🔹 Rule 3: Full PPE Compliance
 **Definition:**  
-Each worker must wear both required PPE:
+Each worker must wear both:
 - Helmet  
 - Safety vest  
 
 **Safe Condition ✅:**
-- Worker is wearing both helmet and vest  
+- Both `helmet` and `vest` are detected along with `person`
 
 **Violation ❌:**
 - Missing helmet  
 - Missing vest  
 - Missing both  
 
+📷 Example:
+![alt text](image-10.png)
+
 ---
 
 ## 3. Safety Decision Logic
 
-The system determines safety using the following logic:
+The system uses a rule-based layer after object detection.
 
-- If a **person is detected** AND
-  - helmet is present AND
-  - vest is present  
-  → **SAFE ✅**
+### Logic:
 
-- If any required PPE is missing  
-  → **UNSAFE ❌**
+- If `person` is detected AND:
+  - `helmet` is present  
+  - `vest` is present  
+  - No violation classes (`no-helmet`, `no-vest`)  
 
----
-
-## 4. Violation Flagging
-
-When a violation is detected, the system:
-
-- Identifies the worker  
-- Highlights bounding boxes  
-- Flags the image as unsafe  
-- Indicates missing PPE (helmet or vest)
+→ **SAFE ✅**
 
 ---
 
-## 5. Example Scenarios
+- If any of the following is detected:
+  - `no-helmet`  
+  - `no-vest`  
+  - Missing PPE  
+
+→ **UNSAFE ❌**
+
+---
+
+- If no `person` is detected:
+→ **No worker detected (not evaluated)**
+
+---
+
+## 4. Example Scenarios
 
 ### ✅ Safe Scenario
-- Worker wearing helmet 🪖 and vest 🦺  
-- Proper PPE usage  
+- Worker wearing helmet and vest  
 - No violations detected  
 
-### ❌ Unsafe Scenario 1
+📷 Example:
+![alt text](image-11.png)
+
+---
+
+### ❌ Unsafe Scenario – Missing Helmet
 - Worker without helmet  
-→ Violation: Helmet missing  
 
-### ❌ Unsafe Scenario 2
+📷 Example:
+![alt text](image-12.png)
+
+---
+
+### ❌ Unsafe Scenario – Missing Vest
 - Worker without vest  
-→ Violation: Vest missing  
 
-### ❌ Unsafe Scenario 3
-- Worker without both helmet and vest  
-→ Violation: Multiple PPE missing  
+📷 Example:
+![alt text](image-13.png)
 
 ---
 
+### ❌ Unsafe Scenario – Multiple Violations
+- Worker missing both helmet and vest  
 
-
-## 7. Limitations of Safety Rules
-
-- The system relies on visible detection; occluded workers may not be correctly evaluated  
-- PPE detection accuracy depends on image quality and lighting  
-- Incorrect labeling or partial visibility may lead to false positives or false negatives  
+📷 Example:
+![alt text](image-14.png)
 
 ---
 
-## 8. Summary
-The system enforces basic PPE compliance rules focused on helmet and vest usage.
+## 5. Important Design Choice
 
-These rules enable the model to:
-- Detect unsafe conditions 🚨  
-- Identify missing protective equipment  
-- Provide clear and interpretable safety decisions  
+This system performs **scene-level classification**:
 
-This rule-based approach ensures that the system is simple, explainable, and effective for real-world construction safety monitoring.
+> If any safety violation is detected in the image, the entire scene is marked as unsafe.
+
+This simplifies decision-making and ensures that no violation is ignored.
+
+---
+
+## 6. Limitations of Safety Rules
+
+- Does not match PPE per individual worker (scene-level only)  
+- May misclassify in crowded scenes  
+- Dependent on detection accuracy  
+- Occlusion or poor lighting may affect detection  
+
+---
+
+## 7. Summary
+The system enforces simple and interpretable safety rules based on PPE detection:
+
+- Helmet required  
+- Vest required  
+- Missing PPE → Unsafe  
+
+This rule-based approach ensures that model predictions are understandable and aligned with real-world safety requirements.
